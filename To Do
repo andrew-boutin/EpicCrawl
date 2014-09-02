@@ -1,0 +1,25 @@
+Hook up to git hub - make branch for level designer
+
+Home
+	Use a better layout on home page
+
+Game
+
+Designer
+	Mouse dragging spawn multiple click events for same coordinates
+		While dragging could save last updated coordinate and ignore if it is reached again
+		
+	Opening designer is really resource intensive
+		Could possibly not save images in object map items
+		Have array in designer grid - index corresponds to key of item
+			make images as they are needed - if they aren't already made and stored
+	
+	Wish List
+		Undo, Zoom, Log area, delete
+		
+	Add extra param to ObjectMapItem - string array of extra info to be saved/parsed
+	
+	Don't put door in house - add in seperately
+	Change back to put it in and prompt for portal info
+	
+	Creating portals correctly when loading level

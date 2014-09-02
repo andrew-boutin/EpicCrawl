@@ -1,0 +1,18 @@
+Level Designer
+==============
+
+Options:
+---Single:
+------Right Click: 
+---------Place the selected Tile onto a square.
+------Left Click: 
+---------Remove the top Tile from a square.
+---Fill: 
+------Place the selected Tile onto all adjacent squares that have the same tiles.
+---Edit: 
+	
+Admin:
+---Save: 
+---Load: 
+---Clear: 
+---Main Menu: 
