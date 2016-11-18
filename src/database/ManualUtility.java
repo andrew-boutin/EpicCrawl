@@ -1,3 +1,8 @@
+/**
+ * Database utility functionality that won't be used by the running game.
+ * Manual admin capabilities.
+ */
+
 package database;
 
 import java.sql.Connection;
@@ -14,6 +19,7 @@ public class ManualUtility{
 			                                        "images TEXT, type TEXT, layer TEXT)";
 	
 	// ID, NAME, IMAGES, TYPE, LAYER
+	// TODO: Finish setting these
 	// TODO: Check for ones that should have multiple types
 	// TODO: Add in ONWALL later on & separate out the WALL items
 	private static final String[][] itemMeta = {
