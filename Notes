@@ -4,52 +4,34 @@ Build all levels through the level editor.
 - Enemy difficulties randomized around the player's level.
 - Items randomized around the player's level.
 
-Save Level
-SAME FOR NOW.
-
-Load Level
-SAME FOR NOW.
-
-Database Schema
-
-Players
-ID | IMAGE_ID | ...
-
-ENEMIES
-ID | IMAGE_ID | ...
-
-NPCs
-ID | IMAGE_ID | ...
-
 Levels (No more external level folder/files)
 ID | Name | TEXT (For now same format that text files have)
-
-Images
-ID | NAME | Path
 
 Existing Enemies # Can store the state of enemies in levels that have already been encountered. Levels can have a state this way. Implement later on.
 ID | ...
 
 
+==================================================================
+ITEMS (Used by level designer & by running game)
+ID | NAME | IMAGES (Single, 1D, or 2D array) | TYPE (List) | LAYER
 
-* allow everything to be animated...
-VOID              - nothing allowed, special kind of floor.
-FLOOR             - movement allowed. things allowed on top (floor items, npcs, enemies)
-FLOOR ITEM        - only goes on Floor
-WALL              - things allowed on top, movement not allowed.
+ID:     INTEGER - Unique integer key
+NAME:   TEXT    - Unique short name. Used to label in level designer.
+IMAGES: .....   - Single, 1D array, or 2D array of image paths.
+TYPE:   TEXT    - ENEMY, NPC, REGULAR, ANIMATED, PORTAL, STATE (chest open/closed), SPAN (house), CONTAINER (chest)
+LAYER:  TEXT    - VOID, GROUND, WALL, ONGROUND, ONWALL
+
+Interfaces
+ANIMATED, CONTAINER, STATE
+
 
 NPCs              - place on floor, Input info....
 ENEMIES           - place on floor, Input info....
-
 PORTAL - Place on floors. Change player's location & potentially the level. Input level name & coordinates.
-
 ACCESSIBLE (containers). Place on floors.  Input info....
-
 SPAN              - ............................................
 WALL ITEM         - only goes on a wall <----------- currently separate images for plain walls & walls w/ things on them. Need torches, paintings, etc.
 FLOOR ITEM'S ITEM - can only be placed on select FLOOR ITEMs <----------- don't have these yet. currently have separate images.
-
-
 
 TODO:
 Don't allow door/portal fill actions...

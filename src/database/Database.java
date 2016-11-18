@@ -1,7 +1,10 @@
-package utility;
+package database;
 
 public final class Database {
 	private static Database instance;
+	
+	public static final String databaseName  = "epiccrawl",
+                               itemMetaTable = "itemMeta";
 
 	private Database(){
 		
@@ -15,6 +18,8 @@ public final class Database {
 	}
 	
 	// TODO: Save level
-	
 	// TODO: Get level
+	
+	// TODO: Add new meta item
+	
 }
