@@ -20,8 +20,11 @@ import epiccrawl.designer.designerComponent.OptionListener;
 public class DesignerPanel extends JPanel implements AdminListener{
 	private OptionsPanel optionsPanel;
 	private DesignerGrid designerGrid;
+	private LevelParser levelParser;
 	
 	public DesignerPanel(JButton homeButton){
+		levelParser = LevelParser.getInstance();
+		
 		makePanel();
 		
 		designerGrid = new DesignerGrid();
@@ -57,19 +60,22 @@ public class DesignerPanel extends JPanel implements AdminListener{
 			System.out.println("Main Menu");
 			break;
 		case 1:
-			LevelParser.saveLevel(this, designerGrid.getGridObjects());
+			levelParser.saveLevel(this, designerGrid.getGridObjects());
 			break;
 		case 2:
-			LevelParser.loadLevelToDesigner(this, designerGrid.getGridObjects());
+			levelParser.loadLevelToDesigner(this, designerGrid.getGridObjects());
 			repaint();
 			break;
 		case 3:
+			levelParser.deleteLevel(this);
+			break;
+		case 4:
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			designerGrid.clearGrid();
 			this.setCursor(Cursor.getDefaultCursor());
 			repaint();
 			break;
-		case 4:
+		case 5:
 			showInfoMessage();
 			break;
 		default:

@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main {
+	public static int rows = 50, cols = 50;
+	
 	private JFrame mainFrame; // Frame that holds the entire game
 	private JPanel curPanel;
 	//private Home home;

@@ -1,10 +1,13 @@
-DB Update:
- Level table
- Save level
- Load level
- Populate designer
- Layer/Type updates
-
+Warning on level delete & no levels
+Warning on level open & no levels
+Images as 2D array
+Tile Combobox: Group MetaItems By Layer and then by Type/s http://stackoverflow.com/questions/17061314/how-to-sort-the-jcombobox-elements-in-java-swing
+Layer/Type updates - make sure MetaItems are tagged appropriately
+Fix placing SPAN items
+Fix placing portals
+Signs that hold text
+Fix portal edits
+Check item placement logic w/ new layers/types
 
 Home
 	Use a better layout on home page
@@ -21,7 +24,7 @@ Designer
 			make images as they are needed - if they aren't already made and stored
 	
 	Wish List
-		Undo, Zoom, Log area, delete
+		Undo, Zoom, Log area
 	
 	Don't put door in house - add in seperately
 	Change back to put it in and prompt for portal info

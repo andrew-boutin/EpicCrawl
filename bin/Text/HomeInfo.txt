@@ -1,9 +1,0 @@
-Epic Crawl
-==========
-
-Controls:
-- 
-
-Developed by: 
-- Andrew Boutin
-- http://www.andrewboutin.com

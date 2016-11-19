@@ -72,7 +72,7 @@ public class HomePanel extends JPanel{
 		startGameB.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent event){
-            	System.out.println("Start Game Button Pressed");
+            	JOptionPane.showMessageDialog(null, "Game play coming soon!", "Start Game Info", JOptionPane.INFORMATION_MESSAGE);
             }
 		});
 		
