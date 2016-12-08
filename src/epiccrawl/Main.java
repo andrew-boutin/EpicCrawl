@@ -14,7 +14,6 @@ public class Main {
 	
 	private JFrame mainFrame; // Frame that holds the entire game
 	private JPanel curPanel;
-	//private Home home;
 	//private ModeManager modeManager;
 	
 	public Main(){
@@ -66,7 +65,6 @@ public class Main {
 		panel.setVisible(true);
 		mainFrame.add(panel);
 		curPanel = panel;
-		//mainFrame.pack();
 		mainFrame.repaint();
 	}
 	

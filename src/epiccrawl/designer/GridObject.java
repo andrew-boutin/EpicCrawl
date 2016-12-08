@@ -87,8 +87,8 @@ public class GridObject extends JPanel{
 		
 		if(result != JOptionPane.OK_OPTION || !portalInputPanel.isValid()) return null; // Cancel
 		
-		String levelName = portalInputPanel.getLevelName();
-		int x = portalInputPanel.getX(), y = portalInputPanel.getY();
+		//String levelName = portalInputPanel.getLevelName();
+		//int x = portalInputPanel.getX(), y = portalInputPanel.getY();
 		
 		MetaItem metaItem = MetaItem.getMetaItemByID(id);
 		//metaItem.setExtraInfo("{" + levelName + "," + x + "," + y + "}"); // TODO:
@@ -136,7 +136,6 @@ public class GridObject extends JPanel{
 	
 	public ArrayList<MetaItem> getObjects(){ return metaItems;}
 	
-	// TODO: Need to put VOID in here?
 	public void clearObjects(){ metaItems.clear();}
 	
 	public void removeTopObject(){
