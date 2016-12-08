@@ -9,6 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import epiccrawl.database.Layer;
 import epiccrawl.database.MetaItem;
 import epiccrawl.designer.designerComponent.AdminListener;
 import epiccrawl.designer.designerComponent.Button;
@@ -102,6 +103,10 @@ public class OptionsPanel extends JPanel{
 		
 		for(MetaItem metaItem : metaItemMap.values())
 			tilesComboBox.addItem(metaItem);
+		
+		// Add headers to make searching for items easier
+		for(Layer layer: Layer.values())
+			tilesComboBox.addItem(new MetaItem(-1, " ******** " + layer.name() + " ******** ", null, null, layer));
 		
 		this.add(tilesComboBox);
 	}

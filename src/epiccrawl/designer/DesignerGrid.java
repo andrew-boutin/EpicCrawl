@@ -90,6 +90,9 @@ public class DesignerGrid extends JPanel implements OptionListener{
 	
 	@Override
 	public void comboBoxItemSelected(int comboBoxID, MetaItem metaItem) {
+		if(metaItem.getID() == -1)
+			return;
+		
 		selectedMetaItem = metaItem;
 	}
 	
