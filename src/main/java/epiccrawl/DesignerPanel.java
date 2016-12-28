@@ -1,4 +1,4 @@
-package epiccrawl;
+package main.java.epiccrawl;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -11,10 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import epiccrawl.designer.DesignerGrid;
-import epiccrawl.designer.OptionsPanel;
-import epiccrawl.designer.designerComponent.AdminListener;
-import epiccrawl.designer.designerComponent.OptionListener;
+import main.java.epiccrawl.designer.DesignerGrid;
+import main.java.epiccrawl.designer.OptionsPanel;
+import main.java.epiccrawl.designer.designerComponent.AdminListener;
+import main.java.epiccrawl.designer.designerComponent.OptionListener;
 
 @SuppressWarnings("serial")
 public class DesignerPanel extends JPanel implements AdminListener{

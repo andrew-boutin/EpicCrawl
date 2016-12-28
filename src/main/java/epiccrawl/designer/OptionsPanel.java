@@ -1,4 +1,4 @@
-package epiccrawl.designer;
+package main.java.epiccrawl.designer;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -9,13 +9,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import epiccrawl.database.Layer;
-import epiccrawl.database.MetaItem;
-import epiccrawl.designer.designerComponent.AdminListener;
-import epiccrawl.designer.designerComponent.Button;
-import epiccrawl.designer.designerComponent.ComboBox;
-import epiccrawl.designer.designerComponent.OptionListener;
-import epiccrawl.designer.designerComponent.RadioButton;
+import main.java.epiccrawl.database.Layer;
+import main.java.epiccrawl.database.MetaItem;
+import main.java.epiccrawl.designer.designerComponent.AdminListener;
+import main.java.epiccrawl.designer.designerComponent.Button;
+import main.java.epiccrawl.designer.designerComponent.ComboBox;
+import main.java.epiccrawl.designer.designerComponent.OptionListener;
+import main.java.epiccrawl.designer.designerComponent.RadioButton;
 
 @SuppressWarnings("serial")
 public class OptionsPanel extends JPanel{
