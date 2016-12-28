@@ -1,4 +1,4 @@
-package epiccrawl;
+package main.java.epiccrawl;
 
 import java.awt.Image;
 import java.io.IOException;

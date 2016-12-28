@@ -1,4 +1,4 @@
-package epiccrawl.designer.designerComponent;
+package main.java.epiccrawl.designer.designerComponent;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

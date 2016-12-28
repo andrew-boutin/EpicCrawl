@@ -2,7 +2,7 @@
  * 
  */
 
-package epiccrawl.database;
+package main.java.epiccrawl.database;
 
 public enum Layer {
 	VOID,
