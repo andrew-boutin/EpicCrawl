@@ -3,7 +3,7 @@
  * Manual admin capabilities.
  */
 
-package main.java.epiccrawl.database;
+package epiccrawl.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

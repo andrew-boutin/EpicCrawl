@@ -1,4 +1,4 @@
-package main.java.epiccrawl;
+package epiccrawl;
 
 import java.awt.Cursor;
 import java.util.ArrayList;
@@ -8,9 +8,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import main.java.epiccrawl.database.Database;
-import main.java.epiccrawl.database.MetaItem;
-import main.java.epiccrawl.designer.GridObject;
+import epiccrawl.database.Database;
+import epiccrawl.database.MetaItem;
+import epiccrawl.designer.GridObject;
 
 public final class LevelParser {
 	private static LevelParser instance;

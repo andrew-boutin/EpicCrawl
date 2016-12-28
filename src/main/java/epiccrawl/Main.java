@@ -1,4 +1,4 @@
-package main.java.epiccrawl;
+package epiccrawl;
 
 import java.awt.Color;
 import java.awt.Dimension;

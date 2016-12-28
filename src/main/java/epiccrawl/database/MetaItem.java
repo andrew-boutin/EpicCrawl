@@ -1,10 +1,10 @@
-package main.java.epiccrawl.database;
+package epiccrawl.database;
 
 import java.awt.Image;
 import java.util.List;
 import java.util.Map;
 
-import main.java.epiccrawl.GameUtility;
+import epiccrawl.GameUtility;
 
 public final class MetaItem {
 	private static Database database = Database.getInstance();

@@ -1,10 +1,22 @@
+// Get the Spring Boot plugin ready for use
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+    }
+}
+
+// Set up the requires plugins
 apply plugin: 'java'
-
 apply plugin: 'application'
+apply plugin: 'spring-boot'
 
-mainClassName = 'main.java.epiccrawl.Main'
+// Main class of the project
+mainClassName = 'epiccrawl.Main'
 
-// Define where to gather dependencies from
+// Repositories to use when resolving the dependencies section
 repositories{
     mavenCentral()
 }
@@ -13,6 +25,12 @@ repositories{
 dependencies{
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc/3.15.1
     compile "org.xerial:sqlite-jdbc:3.15.1"
+}
+
+// Set up Spring Boot so it can create the executable .jar
+springBoot{
+    backupSource = false
+    mainClass = 'epiccrawl.Main'
 }
 
 // Define the artifact output for the project
