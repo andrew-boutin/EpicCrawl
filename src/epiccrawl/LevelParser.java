@@ -1,31 +1,54 @@
 package epiccrawl;
 
 import java.awt.Cursor;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import epiccrawl.database.Database;
+import epiccrawl.database.MetaItem;
 import epiccrawl.designer.GridObject;
-import epiccrawl.designer.ObjectMapItem;
 
 public final class LevelParser {
+	private static LevelParser instance;
 	private static String curLevelName = "";
+	private Database database;
 	
-	private LevelParser(){}
+	private LevelParser(){
+		database = Database.getInstance();
+	}
 	
-	// save to file
-	public static void saveLevel(JPanel panel, GridObject[][] gridObjs){
+	public static LevelParser getInstance(){
+		if(instance == null)
+			instance = new LevelParser();
+		
+		return instance;
+	}
+	
+	public void deleteLevel(JPanel panel){
+		List<String> savedLevels = database.getSavedLevelNames();
+		
+		if(savedLevels.size() == 0) return; // TODO: Warn about no levels
+
+		String levelName = (String)JOptionPane.showInputDialog(null,
+				"Select level to delete", "Delete Level", JOptionPane.INFORMATION_MESSAGE, null, savedLevels.toArray(), curLevelName);
+
+		if(levelName == null || levelName.equals("null")) return;
+		
+		if(levelName.equals(curLevelName))
+			curLevelName = "";
+		
+		panel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
+		database.deleteLevel(levelName);
+		
+		panel.setCursor(Cursor.getDefaultCursor());
+	}
+	
+	public void saveLevel(JPanel panel, GridObject[][] gridObjs){
 		String levelName = (String)JOptionPane.showInputDialog(panel, 
 				"Enter level name.", "Save level", JOptionPane.INFORMATION_MESSAGE, null, null, curLevelName);
 	
@@ -35,54 +58,28 @@ public final class LevelParser {
 		
 		panel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-		levelName += ".txt";
 		String levelString = designerToString(gridObjs); // Make level into a string
 		
-		boolean alreadyExists = false;
-		
-		// Need to check if level name already exists in the file
-		try{
-			FileReader fr = new FileReader("Levels/LevelsList.txt");
-			BufferedReader br = new BufferedReader(fr);
-			String line;  
-			while((line = br.readLine()) != null) {  
-			      if(line.equals(levelName)){
-			    	  alreadyExists = true;
-			    	  break;
-			      }
-			}
-			fr.close();
-			br.close();
-		}catch(Exception e2){}
-		
-		if(!alreadyExists){
-			try{
-				FileWriter fw = new FileWriter("Levels/LevelsList.txt", true);
-				BufferedWriter bufWriter = new BufferedWriter(fw);
-				bufWriter.write(levelName);
-				bufWriter.newLine();
-				bufWriter.flush();
-				bufWriter.close();
-				fw.close();
-			}
-			catch(IOException e){System.out.println("Error saving level to LevelsList.txt");}
+		// Need to check if level name already exists
+		if(database.doesLevelNameExist(curLevelName)){
+			int reply = JOptionPane.showConfirmDialog(null, "Overwrite existing level \"" + curLevelName +"\"?", "Overwrite Level", JOptionPane.YES_NO_OPTION);
+			
+	        if(reply == JOptionPane.YES_OPTION)
+	          database.overWriteLevelData(curLevelName, levelString);
 		}
-		
-		try{
-			PrintWriter p = new PrintWriter(new File("Levels/" + levelName));
-			p.println(levelString);
-			p.close();   
-		} catch (FileNotFoundException e1){}
+		else
+			database.createLevel(curLevelName, levelString);
+
 		panel.setCursor(Cursor.getDefaultCursor());
 	}
 	
-	private static String designerToString(GridObject[][] gridObjs){
+	private String designerToString(GridObject[][] gridObjs){
 		StringBuilder strBuilder = new StringBuilder("");
 		
 		for(int row = 0; row < gridObjs.length; row++){
 			for(int col = 0; col < gridObjs[row].length; col++){
-				for(ObjectMapItem objMapItem: gridObjs[row][col].getObjects()){
-					strBuilder.append(objMapItem.getKey()).append(",");
+				for(MetaItem metaItem: gridObjs[row][col].getObjects()){
+					strBuilder.append(metaItem.getID()).append(",");
 				}
 				strBuilder.append(" ");
 			}
@@ -92,45 +89,31 @@ public final class LevelParser {
 		return strBuilder.toString();
 	}
 	
-	// load to designer
-	public static void loadLevelToDesigner(JPanel panel, GridObject[][] gridObjs){
-		String[] savedLevels = GameUtility.getSavedLevelNames();
+	public void loadLevelToDesigner(JPanel panel, GridObject[][] gridObjs){
+		List<String> savedLevels = database.getSavedLevelNames();
 		
-		if(savedLevels == null) return; // "";
+		if(savedLevels.size() == 0) return; // TODO: Warn about no levels
 
 		String levelFileName = (String)JOptionPane.showInputDialog(null,
-				"Select level to load", "Load Level", JOptionPane.INFORMATION_MESSAGE, null, savedLevels, curLevelName);
+				"Select level to load", "Load Level", JOptionPane.INFORMATION_MESSAGE, null, savedLevels.toArray(), curLevelName);
 
-		if(levelFileName == null) return; // "";
-		curLevelName = levelFileName; //.replace(".txt", "");
-		levelFileName += ".txt";
+		if(levelFileName == null) return;
+		curLevelName = levelFileName;
 
 		panel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
-		FileReader fileReader = null;
-		try{
-			fileReader = new FileReader("Levels/" + levelFileName);
-		} 
-		catch(FileNotFoundException e1){System.out.println("file not found");}
+		String levelData = database.getLevelData(curLevelName);
 
-		Scanner lineScanner = new Scanner(fileReader);
-		Scanner wordScanner = null;
 		int curRow = 0, curCol = 0;
-		String curString = "";
 
-		while(lineScanner.hasNextLine()){
-			wordScanner = new Scanner(lineScanner.nextLine());
-
-			while(wordScanner.hasNext()){
+		for(String line: levelData.split("\n")){
+			for(String word: line.split(" ")){
 				gridObjs[curRow][curCol].clearObjects();
-				curString = wordScanner.next();
-				
-				ArrayList<String> wordList = new ArrayList<String>(Arrays.asList(curString.split(",")));
+			
+				ArrayList<String> wordList = new ArrayList<String>(Arrays.asList(word.split(",")));
 
 				for(String cur: wordList) // TODO: Portals ... etc.
-					gridObjs[curRow][curCol].addObjectToTop(GameInfo.makeObjectMapItem(Integer.parseInt(cur)));
-					//gridObjs[curRow][curCol].handleClick(GameInfo.makeObjectMapItem(Integer.parseInt(cur)));
-				
+					gridObjs[curRow][curCol].addObjectToTop(MetaItem.getMetaItemByID(Integer.parseInt(cur)));
 
 				++curCol;
 			}
@@ -138,17 +121,7 @@ public final class LevelParser {
 			curCol = 0;
 			++curRow;
 		}
-
-		try{ fileReader.close();}
-		catch (IOException e){}
-		
-		lineScanner.close();
-		wordScanner.close();
 		
 		panel.setCursor(Cursor.getDefaultCursor());
 	}
-	
-	
-	
-	// load to game
 }

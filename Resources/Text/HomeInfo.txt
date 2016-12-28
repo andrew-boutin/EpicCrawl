@@ -2,8 +2,9 @@ Epic Crawl
 ==========
 
 Controls:
-- 
+- TBD
 
 Developed by: 
 - Andrew Boutin
+- https://github.com/andrew-boutin/EpicCrawl
 - http://www.andrewboutin.com

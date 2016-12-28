@@ -7,13 +7,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import database.Type;
-import epiccrawl.GameInfo;
+import epiccrawl.Main;
+import epiccrawl.database.MetaItem;
+import epiccrawl.database.Type;
 import epiccrawl.designer.designerComponent.OptionListener;
 import epiccrawl.designer.designerComponent.PortalInputPanel;
 
@@ -22,17 +24,17 @@ public class DesignerGrid extends JPanel implements OptionListener{
 	private int rows, cols, optionsID;
 	private GridObject[][] gridObjs;
 	
-	private ObjectMapItem selectedObjMapItem;
+	private MetaItem selectedMetaItem;
 	private GridObject hoverGridObj;
 	
-	private ArrayList<ObjectMapItem> fillObjectMapItemsHolder;
+	private ArrayList<MetaItem> fillObjectMetaItemHolder;
 	private boolean[][] alreadyChecked;
 	
 	public DesignerGrid(){
-		rows = GameInfo.rows;
-		cols = GameInfo.cols;
+		rows = Main.rows;
+		cols = Main.cols;
 		optionsID = 0;
-		selectedObjMapItem = GameInfo.makeObjectMapItem(0);
+		selectedMetaItem = MetaItem.getVoidMetaItem();
 		
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.setColumns(cols);
@@ -87,15 +89,15 @@ public class DesignerGrid extends JPanel implements OptionListener{
 	}
 	
 	@Override
-	public void comboBoxItemSelected(int comboBoxID, ObjectMapItem objMapItem) {
-		selectedObjMapItem = objMapItem;
+	public void comboBoxItemSelected(int comboBoxID, MetaItem metaItem) {
+		selectedMetaItem = metaItem;
 	}
 	
 	public void clearGrid(){
 		for(int i = 0; i < gridObjs.length; i++){
 			for(int j = 0; j < gridObjs[i].length; j++){
 				gridObjs[i][j].clearObjects();
-				gridObjs[i][j].addObjectToTop(GameInfo.makeObjectMapItem(0));
+				gridObjs[i][j].addObjectToTop(MetaItem.getVoidMetaItem());
 			}
 		}
 	}
@@ -144,24 +146,25 @@ public class DesignerGrid extends JPanel implements OptionListener{
 	}
 	
 	private void handleSingle(Point clickPoint){
-		Type type = selectedObjMapItem.getType();
-		if(type == Type.span){ // Multi-image object
+		List<Type> types = selectedMetaItem.getTypes();
+		if(types.contains(Type.SPAN)){ // Multi-image object
 			Point coord = getCoordinateofPoint(clickPoint);
 			int col = coord.x, row = coord.y;
-			MultiObjectHandler.handleMultiObjectPlacement(gridObjs, row, col, selectedObjMapItem.getKey());
+			MultiObjectHandler.handleMultiObjectPlacement(gridObjs, row, col, selectedMetaItem.getID());
 		}
 		else{ // Singular object
-			findGridObjectByPoint(clickPoint).handleClick(selectedObjMapItem);
+			findGridObjectByPoint(clickPoint).handleClick(selectedMetaItem);
 		}
 	}
 	
 	private void handleFill(Point clickPoint){
 		Point coord = getCoordinateofPoint(clickPoint);
 		int col = coord.x, row = coord.y;
+		List<Type> types = selectedMetaItem.getTypes();
 		
-		if(selectedObjMapItem.getType() == Type.span) return; // Don't fill with multi-tile images
+		if(types.contains(Type.SPAN) || types.contains(Type.PORTAL)) return; // Don't fill with multi-tile images or portals
 		
-		fillObjectMapItemsHolder = gridObjs[row][col].deepCopyObjectMapItems();
+		fillObjectMetaItemHolder = gridObjs[row][col].deepCopyObjectMapItems();
 		
 		for(int i = 0; i < alreadyChecked.length; i++){
 			for(int j = 0; j < alreadyChecked[i].length; j++)
@@ -175,8 +178,8 @@ public class DesignerGrid extends JPanel implements OptionListener{
 	private void fillHelper(int row, int col){
 		alreadyChecked[row][col] = true;
 		
-		if(gridObjs[row][col].sameObjectMapItems(fillObjectMapItemsHolder)){
-			gridObjs[row][col].handleClick(selectedObjMapItem);
+		if(gridObjs[row][col].sameObjectMapItems(fillObjectMetaItemHolder)){
+			gridObjs[row][col].handleClick(selectedMetaItem);
 			
 			if(row + 1 < rows && !alreadyChecked[row + 1][col])
 				fillHelper(row + 1, col);
