@@ -2,8 +2,8 @@ package epiccrawl.designer;
 
 import java.awt.Image;
 
-import epiccrawl.GameInfo.Layer;
-import epiccrawl.GameInfo.Type;
+import database.Type;
+import database.Layer;
 import epiccrawl.GameUtility;
 
 public class ObjectMapItem {
