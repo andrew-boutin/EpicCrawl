@@ -1,3 +1,5 @@
+Use Spring Boot to create a runnable .jar. spring-boot-gradle-plugin http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-gradle
+
 Images as 2D array
 Layer/Type updates - make sure MetaItems are tagged appropriately
 Fix placing SPAN items

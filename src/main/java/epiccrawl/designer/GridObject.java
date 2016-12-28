@@ -1,7 +1,7 @@
 // TODO: Will need to store actual objects in the grid as they're placed instead of MetaItems. Objects will refer to Meta Items.
 // This will allow objects to take in extra user input when placed, know how to save/load themselves.
 
-package epiccrawl.designer;
+package main.java.epiccrawl.designer;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,10 +10,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import epiccrawl.database.Layer;
-import epiccrawl.database.MetaItem;
-import epiccrawl.database.Type;
-import epiccrawl.designer.designerComponent.PortalInputPanel;
+import main.java.epiccrawl.database.Layer;
+import main.java.epiccrawl.database.MetaItem;
+import main.java.epiccrawl.database.Type;
+import main.java.epiccrawl.designer.designerComponent.PortalInputPanel;
 
 @SuppressWarnings("serial")
 public class GridObject extends JPanel{
