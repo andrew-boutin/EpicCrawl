@@ -19,7 +19,5 @@ public final class Database {
 	
 	// TODO: Save level
 	// TODO: Get level
-	
 	// TODO: Add new meta item
-	
 }
