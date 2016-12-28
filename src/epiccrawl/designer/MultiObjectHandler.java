@@ -4,23 +4,23 @@ public final class MultiObjectHandler {
 	// TODO: Make methods to check xrows by xcols, have house use method to make xrows by xcols, pass in images
 	
 	public static void handleMultiObjectPlacement(GridObject[][] gridObjs, int row, int col, int objKey){
-		
 		// TODO: Should be able to determine this from the input image 2D array
 		// Gives the coords offset from click point to check for validity - place the given objects
 		
 		switch(objKey){
-//		case 21:
-//			handleBed(gridObjs, row, col, objKey);
-//			break;
-//		case 26: // House
-//			handleHouse(gridObjs, row, col, objKey);
-//			break;
+		case 21:
+			handleBed(gridObjs, row, col, objKey);
+			break;
+		case 26: // House
+			handleHouse(gridObjs, row, col, objKey);
+			break;
 		default:
 			System.err.println("Error placing multi-object, key: " + objKey);	
 		}
 	}
 	
 	private static void handleBed(GridObject[][] gridObjs, int rowStart, int colStart, int objKey){
+		System.err.println("SPAN bed placement not implemented yet.");
 		/* TODO:
 		if(colStart + 1 >= GameInfo.rows) return;
 		
@@ -40,6 +40,7 @@ public final class MultiObjectHandler {
 	}
 	
 	private static void handleHouse(GridObject[][] gridObjs, int rowStart, int colStart, int objKey){
+		System.err.println("SPAN house placement not implemented yet.");
 		/* TODO:
 		// row,col will be top/left of building
 		// Have to see if all spots are within valid indexes

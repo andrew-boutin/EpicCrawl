@@ -31,7 +31,10 @@ public final class LevelParser {
 	public void deleteLevel(JPanel panel){
 		List<String> savedLevels = database.getSavedLevelNames();
 		
-		if(savedLevels.size() == 0) return; // TODO: Warn about no levels
+		if(savedLevels.size() == 0){
+			JOptionPane.showMessageDialog(null, "There aren't any saved levels.", "Info", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 
 		String levelName = (String)JOptionPane.showInputDialog(null,
 				"Select level to delete", "Delete Level", JOptionPane.INFORMATION_MESSAGE, null, savedLevels.toArray(), curLevelName);
@@ -92,7 +95,10 @@ public final class LevelParser {
 	public void loadLevelToDesigner(JPanel panel, GridObject[][] gridObjs){
 		List<String> savedLevels = database.getSavedLevelNames();
 		
-		if(savedLevels.size() == 0) return; // TODO: Warn about no levels
+		if(savedLevels.size() == 0){
+			JOptionPane.showMessageDialog(null, "There aren't any saved levels.", "Info", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 
 		String levelFileName = (String)JOptionPane.showInputDialog(null,
 				"Select level to load", "Load Level", JOptionPane.INFORMATION_MESSAGE, null, savedLevels.toArray(), curLevelName);
