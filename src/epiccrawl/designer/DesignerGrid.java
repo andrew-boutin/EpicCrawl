@@ -12,8 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import database.Type;
 import epiccrawl.GameInfo;
-import epiccrawl.GameInfo.Type;
 import epiccrawl.designer.designerComponent.OptionListener;
 import epiccrawl.designer.designerComponent.PortalInputPanel;
 
