@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
-import epiccrawl.designer.ObjectMapItem;
+import epiccrawl.database.MetaItem;
 
 // Each combo box will have an id
 // Items in the combo box will be from the GameInfo map for game objects
@@ -30,7 +30,7 @@ public class ComboBox extends JComboBox{
 			@Override
 			public void actionPerformed(ActionEvent ae){
 				if(listener != null)
-					listener.comboBoxItemSelected(identifier, (ObjectMapItem)getSelectedItem());
+					listener.comboBoxItemSelected(identifier, (MetaItem)getSelectedItem());
 				else
 					System.out.println("No Listener: mouseReleased");
 			}

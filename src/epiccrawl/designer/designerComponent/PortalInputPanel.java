@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import epiccrawl.GameUtility;
+import epiccrawl.database.Database;
 
 @SuppressWarnings("serial")
 public class PortalInputPanel extends JFrame{
@@ -21,7 +21,7 @@ public class PortalInputPanel extends JFrame{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PortalInputPanel(){
-		levelNameField = new JComboBox(GameUtility.getSavedLevelNames());
+		levelNameField = new JComboBox(Database.getInstance().getSavedLevelNames().toArray());
 		levelNameField.setEditable(true);
 		xField = new JTextField(3);
 		yField = new JTextField(3);
@@ -51,7 +51,7 @@ public class PortalInputPanel extends JFrame{
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void updateLevelList(){
-		levelNameField.setModel(new DefaultComboBoxModel(GameUtility.getSavedLevelNames()));
+		levelNameField.setModel(new DefaultComboBoxModel(Database.getInstance().getSavedLevelNames().toArray()));
 	}
 	
 	public void setX(String x){	xField.setText(x);}

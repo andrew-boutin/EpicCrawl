@@ -2,13 +2,14 @@ package epiccrawl.designer;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import epiccrawl.GameInfo;
+import epiccrawl.database.MetaItem;
 import epiccrawl.designer.designerComponent.AdminListener;
 import epiccrawl.designer.designerComponent.Button;
 import epiccrawl.designer.designerComponent.ComboBox;
@@ -20,7 +21,7 @@ public class OptionsPanel extends JPanel{
 	private  AdminListener adminClient;
 	private OptionListener optionClient;
 	private ComboBox tilesComboBox;
-	private Button save, load, clear, info;
+	private Button save, load, delete, clear, info;
 	private ButtonGroup radioButtonGroup;
 	private JPanel buttonPanel;
 	
@@ -64,16 +65,20 @@ public class OptionsPanel extends JPanel{
 		load = new Button("Load", 2, adminClient);
 		load.setVisible(true);
 		
-		clear = new Button("Clear", 3, adminClient);
+		delete = new Button("Delete", 3, adminClient);
+		delete.setVisible(true);
+		
+		clear = new Button("Clear", 4, adminClient);
 		clear.setVisible(true);
 		
-		info = new Button("Info", 4, adminClient);
+		info = new Button("Info", 5, adminClient);
 		info.setVisible(true);
 		
 		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(1, 4));
+		buttonPanel.setLayout(new GridLayout(1, 5));
 		buttonPanel.add(save);
 		buttonPanel.add(load);
+		buttonPanel.add(delete);
 		buttonPanel.add(clear);
 		buttonPanel.add(info);
 
@@ -93,8 +98,10 @@ public class OptionsPanel extends JPanel{
 		tilesComboBox.setBorder(BorderFactory.createTitledBorder(
 		           BorderFactory.createEtchedBorder(), "Tiles"));
 		
-		for (Integer key : GameInfo.objectMap.keySet())
-			tilesComboBox.addItem(GameInfo.makeObjectMapItem(key));
+		Map<Integer, MetaItem> metaItemMap = MetaItem.getMetaItemMap();
+		
+		for(MetaItem metaItem : metaItemMap.values())
+			tilesComboBox.addItem(metaItem);
 		
 		this.add(tilesComboBox);
 	}

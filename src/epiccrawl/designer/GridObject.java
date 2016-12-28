@@ -1,58 +1,63 @@
+// TODO: Will need to store actual objects in the grid as they're placed instead of MetaItems. Objects will refer to Meta Items.
+// This will allow objects to take in extra user input when placed, know how to save/load themselves.
+
 package epiccrawl.designer;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import epiccrawl.GameInfo;
-import epiccrawl.GameInfo.Layer;
-import epiccrawl.GameInfo.Type;
+import epiccrawl.database.Layer;
+import epiccrawl.database.MetaItem;
+import epiccrawl.database.Type;
 import epiccrawl.designer.designerComponent.PortalInputPanel;
 
 @SuppressWarnings("serial")
 public class GridObject extends JPanel{
-	private ArrayList<ObjectMapItem> objMapItems;
+	private ArrayList<MetaItem> metaItems;
 	private PortalInputPanel portalInputPanel;
 
 	public GridObject(PortalInputPanel portalInputPanel){
 		this.portalInputPanel = portalInputPanel;
 		
-		objMapItems = new ArrayList<ObjectMapItem>();
-		objMapItems.add(GameInfo.makeObjectMapItem(0));
+		metaItems = new ArrayList<MetaItem>();
+		metaItems.add(MetaItem.getVoidMetaItem());
 
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 		this.setVisible(true);
 	}
 	
-	public void handleClick(ObjectMapItem objMapItem){
-		Layer layer = objMapItem.getLayer();
+	public void handleClick(MetaItem metaItem){
+		Layer layer = metaItem.getLayer();
 		
-		if(layer == Layer.first || layer == Layer.firstBase){
-			objMapItems.clear();
-			objMapItems.add(objMapItem);
+		if(layer == Layer.VOID || layer == Layer.GROUND || layer == Layer.WALL){
+			metaItems.clear();
+			metaItems.add(metaItem);
 		}
-		else if(layer == Layer.second){
+		else if(layer == Layer.ONGROUND){ // TODO: separate Layer.ONGROUND from Layer.ONWALL
 			if(!hasValidBase()) return; // Nothing underneath
 			
-			if(objMapItem.getType() == Type.portal) // Portal
-				objMapItem = handlePortal(objMapItem.getKey());
+			if(metaItem.getTypes().contains(Type.PORTAL)) // Portal
+				metaItem = handlePortal(metaItem.getID());
 			
-			if(objMapItem == null) return;
-			if(objMapItems.size() > 1) objMapItems.remove(1); // Replacing
+			if(metaItem == null) return;
+			if(metaItems.size() > 1) metaItems.remove(1); // Replacing
 			
-			objMapItems.add(objMapItem);
+			metaItems.add(metaItem);
 		}
+		else
+			System.err.println("Layer " + layer.toString() + " not handled yet!");
 				
 		repaint();
 	}
 	
 	public void handleEdit(){
 		// TODO: change this to better handle multiple "editable" items in the future
-		if(getTopObject().getType() == Type.portal){
+		if(getTopObject().getTypes().contains(Type.PORTAL)){
+			/* TODO:
 			String info = getTopObject().getExtraInfo();
 			info = getTopObject().getExtraInfo().replace("{", "").replace("}", "");
 			
@@ -70,11 +75,12 @@ public class GridObject extends JPanel{
 			portalInputPanel.setY(y);
 			portalInputPanel.setLevel(levelName);
 			
-			handlePortal(getTopObject().getKey());
+			handlePortal(getTopObject().getID());
+			*/
 		}
 	}
 	
-	private ObjectMapItem handlePortal(int key){
+	private MetaItem handlePortal(int id){
 		portalInputPanel.updateLevelList();
 		
 		int result = portalInputPanel.showOptionPanel();
@@ -84,57 +90,61 @@ public class GridObject extends JPanel{
 		String levelName = portalInputPanel.getLevelName();
 		int x = portalInputPanel.getX(), y = portalInputPanel.getY();
 		
-		ObjectMapItem objMapItem = GameInfo.makeObjectMapItem(key);
-		objMapItem.setExtraInfo("{" + levelName + "," + x + "," + y + "}");
+		MetaItem metaItem = MetaItem.getMetaItemByID(id);
+		//metaItem.setExtraInfo("{" + levelName + "," + x + "," + y + "}"); // TODO:
 		
-		return objMapItem;
+		return metaItem;
 	}
 	
 	public boolean hasValidBase(){
-		if(objMapItems.size() == 0) return false;
-		if(objMapItems.get(0).getLayer() == Layer.first) return false; // Can't place anything on top
+		if(metaItems.size() == 0) return false;
+		
+		Layer curLayer = metaItems.get(0).getLayer();
+		
+		if(curLayer == Layer.WALL || curLayer == Layer.VOID) return false; // Can't place anything on top // TODO:
 		
 		return true;
 	}
 	
-	public ObjectMapItem getTopObject(){
-		return objMapItems.get(objMapItems.size() - 1);
+	public MetaItem getTopObject(){
+		return metaItems.get(metaItems.size() - 1);
 	}
 	
-	public void addObjectToTop(ObjectMapItem objMapItem){
-		objMapItems.add(objMapItem);
+	public void addObjectToTop(MetaItem metaItem){
+		metaItems.add(metaItem);
 	}
 	
-	public boolean sameObjectMapItems(ArrayList<ObjectMapItem> objs){
-		if(objs.size() != objMapItems.size()) return false;
+	public boolean sameObjectMapItems(ArrayList<MetaItem> objs){
+		if(objs.size() != metaItems.size()) return false;
 		
-		for(int i = 0; i < objMapItems.size(); i++)
-			if(objMapItems.get(i).getKey() != objs.get(i).getKey()) return false;
+		for(int i = 0; i < metaItems.size(); i++)
+			if(metaItems.get(i).getID() != objs.get(i).getID()) return false;
 		
 		return true;
 	}
 	
-	public ArrayList<ObjectMapItem> deepCopyObjectMapItems(){
-		ArrayList<ObjectMapItem> objs = new ArrayList<ObjectMapItem>();
+	public ArrayList<MetaItem> deepCopyObjectMapItems(){
+		ArrayList<MetaItem> newMetaItems = new ArrayList<MetaItem>();
 		
-		for(ObjectMapItem curObj: objMapItems){
-			ObjectMapItem objMapItem = GameInfo.makeObjectMapItem(curObj.getKey());
-			objs.add(objMapItem);
+		for(MetaItem curMetaItem: metaItems){
+			MetaItem newMetaItem = MetaItem.getMetaItemByID(curMetaItem.getID());
+			newMetaItems.add(newMetaItem);
 		}
 		
-		return objs;
+		return newMetaItems;
 	}
 	
-	public ArrayList<ObjectMapItem> getObjects(){ return objMapItems;}
+	public ArrayList<MetaItem> getObjects(){ return metaItems;}
 	
-	public void clearObjects(){ objMapItems.clear();}
+	// TODO: Need to put VOID in here?
+	public void clearObjects(){ metaItems.clear();}
 	
 	public void removeTopObject(){
-		if(objMapItems.size() > 0) // Remove the top object if there is something to remove
-			objMapItems.remove(objMapItems.size() - 1);
+		if(metaItems.size() > 0) // Remove the top object if there is something to remove
+			metaItems.remove(metaItems.size() - 1);
 		
-		if(objMapItems.size() == 0) // If nothing is left then replace with void
-			objMapItems.add(GameInfo.makeObjectMapItem(0));
+		if(metaItems.size() == 0) // If nothing is left then replace with void
+			metaItems.add(MetaItem.getVoidMetaItem());
 		
 		repaint();
 	}
@@ -143,7 +153,13 @@ public class GridObject extends JPanel{
 		super.paintComponent(g); // Important to call super class method
 		g.clearRect(0, 0, getWidth(), getHeight()); // Clear the panel
 
-		for(ObjectMapItem curObjMapItem: objMapItems)
-			g.drawImage(curObjMapItem.getImage(), 0, 0, getWidth(), getHeight(), null);
+		for(MetaItem curMetaItem: metaItems){
+			if(curMetaItem == null)
+				System.out.println("Meta item null");
+			else if(curMetaItem.getImage() == null)
+				System.out.println("Meta item image null");
+			else
+				g.drawImage(curMetaItem.getImage(), 0, 0, getWidth(), getHeight(), null);
+		}
 	}
 }
