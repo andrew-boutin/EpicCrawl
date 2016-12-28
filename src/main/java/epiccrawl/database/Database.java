@@ -1,4 +1,4 @@
-package epiccrawl.database;
+package main.java.epiccrawl.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

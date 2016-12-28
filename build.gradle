@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+apply plugin: 'application'
+
+mainClassName = 'main.java.epiccrawl.Main'
+
+// Define where to gather dependencies from
+repositories{
+    mavenCentral()
+}
+
+// Define what dependencies are requires to build this project
+dependencies{
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc/3.15.1
+    compile "org.xerial:sqlite-jdbc:3.15.1"
+}
+
+// Define the artifact output for the project
+jar{
+    baseName = 'epiccrawl'
+    version = '0.0.0'
+}

@@ -1,4 +1,4 @@
-package epiccrawl;
+package main.java.epiccrawl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package epiccrawl.designer.designerComponent;
+package main.java.epiccrawl.designer.designerComponent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import epiccrawl.database.Database;
+import main.java.epiccrawl.database.Database;
 
 @SuppressWarnings("serial")
 public class PortalInputPanel extends JFrame{
