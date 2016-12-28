@@ -1,4 +1,4 @@
-package main.java.epiccrawl.designer.designerComponent;
+package epiccrawl.designer.designerComponent;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
-import main.java.epiccrawl.database.MetaItem;
+import epiccrawl.database.MetaItem;
 
 // Each combo box will have an id
 // Items in the combo box will be from the GameInfo map for game objects

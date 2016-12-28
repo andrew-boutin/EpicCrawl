@@ -1,4 +1,4 @@
-package main.java.epiccrawl.database;
+package epiccrawl.database;
 
 public enum Type {
 	ENEMY,

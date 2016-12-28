@@ -1,4 +1,4 @@
-package main.java.epiccrawl.designer;
+package epiccrawl.designer;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -13,11 +13,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import main.java.epiccrawl.Main;
-import main.java.epiccrawl.database.MetaItem;
-import main.java.epiccrawl.database.Type;
-import main.java.epiccrawl.designer.designerComponent.OptionListener;
-import main.java.epiccrawl.designer.designerComponent.PortalInputPanel;
+import epiccrawl.Main;
+import epiccrawl.database.MetaItem;
+import epiccrawl.database.Type;
+import epiccrawl.designer.designerComponent.OptionListener;
+import epiccrawl.designer.designerComponent.PortalInputPanel;
 
 @SuppressWarnings("serial")
 public class DesignerGrid extends JPanel implements OptionListener{

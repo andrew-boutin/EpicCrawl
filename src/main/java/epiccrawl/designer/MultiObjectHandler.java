@@ -1,4 +1,4 @@
-package main.java.epiccrawl.designer;
+package epiccrawl.designer;
 
 public final class MultiObjectHandler {
 	// TODO: Make methods to check xrows by xcols, have house use method to make xrows by xcols, pass in images
