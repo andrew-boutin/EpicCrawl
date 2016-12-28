@@ -28,7 +28,8 @@ public final class MetaItem {
 		this.name = name;
 		this.layer = layer;
 		
-		img = GameUtility.makeImage(this.images.get(0));
+		if(images != null)
+			img = GameUtility.makeImage(this.images.get(0));
 	}
 	
 	@Override
@@ -61,5 +62,4 @@ public final class MetaItem {
 	//public String getExtraInfo(){ return extraInfo;}
 	//public void setExtraInfo(String info){ extraInfo = info;}
 	//public boolean hasExtraInfo(){ return (!extraInfo.equals(""));}
-
 }

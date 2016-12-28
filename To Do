@@ -1,35 +1,28 @@
-Warning on level delete & no levels
-Warning on level open & no levels
 Images as 2D array
-Tile Combobox: Group MetaItems By Layer and then by Type/s http://stackoverflow.com/questions/17061314/how-to-sort-the-jcombobox-elements-in-java-swing
 Layer/Type updates - make sure MetaItems are tagged appropriately
 Fix placing SPAN items
 Fix placing portals
 Signs that hold text
 Fix portal edits
 Check item placement logic w/ new layers/types
-
-Home
-	Use a better layout on home page
-
-Game
+Item grouping also sorted by Type/s
+User creation of new game objects.
 
 Designer
 	Mouse dragging spawn multiple click events for same coordinates
 		While dragging could save last updated coordinate and ignore if it is reached again
-		
-	Opening designer is really resource intensive
-		Could possibly not save images in object map items
-		Have array in designer grid - index corresponds to key of item
-			make images as they are needed - if they aren't already made and stored
 	
-	Wish List
-		Undo, Zoom, Log area
-	
-	Don't put door in house - add in seperately
+	Don't put door in house - add in separately
 	Change back to put it in and prompt for portal info
 	
 	Creating portals correctly when loading level
 	
 	Don't allow door/portal fill actions...
     Doors have red X over them w/ tool tip if they aren't linked to another door. Portals are OK.
+    
+    
+--- Wish List ---
+Designer
+- Don't allow selecting item headers: http://stackoverflow.com/questions/23722706/how-to-disable-certain-items-in-a-jcombobox
+- Undo last action
+- Zoom in on an area

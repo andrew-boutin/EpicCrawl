@@ -37,24 +37,36 @@ public class ComboBox extends JComboBox{
 		});
 	}
 	
+	/**
+	 * Custom insertion order logic for ComboBox that holds the items to choose from in the level designer.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void addItem(Object anObject) {
-        int size = ((DefaultComboBoxModel) dataModel).getSize();
-        Object obj;
-        boolean added = false;
-        for (int i = 0; i < size; i++) {
-            obj = dataModel.getElementAt(i);
-            int compare = anObject.toString().compareToIgnoreCase(obj.toString());
-            if (compare <= 0) { // if anObject less than or equal obj
-                super.insertItemAt(anObject, i);
-                added = true;
-                break;
+	public void addItem(Object newObj) {
+		MetaItem newMetaItem = (MetaItem)newObj;
+        MetaItem curMetaItem;
+        
+        for(int i = 0; i < ((DefaultComboBoxModel)dataModel).getSize(); i++) {
+        	curMetaItem = (MetaItem)dataModel.getElementAt(i);
+        	
+        	int layerCompare = curMetaItem.getLayer().compareTo(newMetaItem.getLayer());
+            
+        	// Same Layer - start checking further ordering logic
+            if(layerCompare == 0) { // if anObject less than or equal obj
+            	// TODO: Also group by TYPE: ENEMY, NPC, REGULAR, ANIMATED, PORTAL, STATE (chest open/closed), SPAN (house), CONTAINER (chest)
+            	int nameCompare = curMetaItem.toString().compareToIgnoreCase(newMetaItem.toString());
+            	
+            	if(nameCompare >= 0){
+            		super.insertItemAt(newMetaItem, i);
+                    return;
+            	}
+            }
+            else if(layerCompare > 0){
+            	super.insertItemAt(newMetaItem, i);
+                return;
             }
         }
- 
-        if (!added) {
-            super.addItem(anObject);
-        }
+
+        super.addItem(newMetaItem);
     }
 }
