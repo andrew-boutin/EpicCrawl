@@ -8,13 +8,17 @@ buildscript {
     }
 }
 
+group 'org.bakingbits.epiccrawl'
+
 // Set up the requires plugins
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
 
 // Main class of the project
-mainClassName = 'epiccrawl.Main'
+mainClassName = 'org.bakingbits.epiccrawl.EpicCrawl'
 
 // Repositories to use when resolving the dependencies section
 repositories{
@@ -32,11 +36,11 @@ dependencies{
 // Set up Spring Boot so it can create the executable .jar
 springBoot{
     backupSource = false
-    mainClass = 'epiccrawl.Main'
+    mainClass = 'org.bakingbits.epiccrawl.EpicCrawl'
 }
 
 // Define the artifact output for the project
 jar{
     baseName = 'epiccrawl'
-    version = '0.0.0'
+    version = '1.0.0'
 }

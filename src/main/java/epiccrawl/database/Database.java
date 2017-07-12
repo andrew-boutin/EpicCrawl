@@ -153,8 +153,8 @@ public final class Database {
 	}
 	
 	private List<Type> convertDBTypesListToActualTypesList(String types){
-		List<String> tempTypes = new ArrayList<String>(Arrays.asList(types.split(",")));
-		List<Type> actualTypes = new ArrayList<Type>();
+		List<String> tempTypes = new ArrayList<>(Arrays.asList(types.split(",")));
+		List<Type> actualTypes = new ArrayList<>();
 		
 		for(String tempType: tempTypes)
 			actualTypes.add(Type.valueOf(tempType));

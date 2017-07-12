@@ -6,6 +6,6 @@ import epiccrawl.database.MetaItem;
 //When a combo box has an item selected - it will let the listener know the id of the combo box
 //and key of the object in the GameInfo objectMap
 public interface OptionListener {
-	public void comboBoxItemSelected(int comboBoxID, MetaItem metaItem);
-	public void radioButtonPressed(int id);
+	void comboBoxItemSelected(int comboBoxID, MetaItem metaItem);
+	void radioButtonPressed(int id);
 }

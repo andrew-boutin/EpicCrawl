@@ -59,7 +59,7 @@ public class ManualUtility{
 		{"Dark Female In Skirt", "girl2.png", "NPC", "ONGROUND"},
 		{"Grass", "grass.png", "REGULAR", "GROUND"},
 		{"House", "houser0c0.png,houser0c1.png,houser0c2.png,houser0c3.png,houser0c4.png,houser1c0.png,houser1c1.png,houser1c2.png," + 
-		          "houser1c3.png,houser1c4.png,houser2c0.png,houser2c1.png,houser2c2.png,houser2c3.png,houser2c4.png", "REGULAR", "ONGROUND"},
+		          "houser1c3.png,houser1c4.png,houser2c0.png,houser2c1.png,houser2c2.png,houser2c3.png,houser2c4.png", "SPAN", "ONGROUND"},
 		{"Tree With Bushed On The Left", "ltree1.png,ltree2.png,ltree3.png", "ANIMATED", "ONGROUND"},
 		{"Portal", "portal1.png,portal2.png", "PORTAL,ANIMATED", "ONGROUND"},
 		{"Rock", "rock.png", "REGULAR", "ONGROUND"},

@@ -1,7 +1,10 @@
+epiccrawl.db
+
 /bin
 .settings
 .classpath
 .project
+.idea
 
 .gradle
 /build/

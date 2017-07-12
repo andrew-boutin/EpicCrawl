@@ -1,0 +1,26 @@
+DB
+    some utility to run manual scripts
+        print tables, etc.
+
+    read / write level
+    read / write "image"
+
+Designer
+    Multiple images per tile
+    Image logic placement (floor vs chair etc.)
+    Options panel
+        save / load / delete level
+        clear current
+        controls info
+    Single / Fill / Edit
+    Pop top object on right click
+    Portal Input Screen
+    Combo Box to select tile
+    Place mutli tile objects (house, etc.)
+    Control level size
+    Control # tiles visible ... how will this work w/ drawing...
+
+
+New Concepts
+Worlds..
+Tying levels together
