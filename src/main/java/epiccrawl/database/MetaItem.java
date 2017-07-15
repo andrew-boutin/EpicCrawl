@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.util.List;
 import java.util.Map;
 
-import epiccrawl.GameUtility;
+//import epiccrawl.GameUtility;
 
 public final class MetaItem {
 	private static Database database = Database.getInstance();
@@ -29,7 +29,7 @@ public final class MetaItem {
 		this.layer = layer;
 		
 		if(images != null)
-			img = GameUtility.makeImage(this.images.get(0));
+			img = null; //GameUtility.makeImage(this.images.get(0));
 	}
 	
 	@Override

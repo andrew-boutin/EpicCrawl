@@ -43,15 +43,11 @@ public class DatabaseConnector {
 
     private void createTablesAndDataIfNotExists() throws SQLException {
         if(isDatabaseEmpty()) {
-            System.out.println("No tables - creating tables.");
             PreparedStatement preparedStatement = connection.prepareStatement(createLevelsTableQuery);
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
             // TODO: Load the tables with default data if it doesn't already exist
-        }
-        else {
-            System.out.println("tables already exist");
         }
     }
 

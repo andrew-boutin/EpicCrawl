@@ -35,23 +35,15 @@ public final class EpicCrawl {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(cardLayout);
 
-        // The designer is embedded into a scrollable view to support zooming
-        JScrollPane jScrollPane = new JScrollPane();
-        jScrollPane.setWheelScrollingEnabled(false);
-        mainPanel.add(jScrollPane, PanelId.DESIGNER.toString());
-
         // Create the different panels for the game
         JPanel mainScreenPanel = new MainScreenPanel(mainPanel, cardLayout);
         JPanel designerPanel = new DesignerPanel(createMainMenuButton(mainPanel, cardLayout));
         JPanel infoPanel = new InfoPanel(createMainMenuButton(mainPanel, cardLayout));
         JPanel gamePlayPanel = new GamePlayPanel(createMainMenuButton(mainPanel, cardLayout));
 
-        jScrollPane.setViewportView(designerPanel);
-        jScrollPane.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
-
         // Add the different panels for the game with unique Ids
         mainPanel.add(mainScreenPanel, PanelId.MAIN_SCREEN.toString());
-        //mainPanel.add(designerPanel, PanelId.DESIGNER.toString());
+        mainPanel.add(designerPanel, PanelId.DESIGNER.toString());
         mainPanel.add(infoPanel, PanelId.INFO.toString());
         mainPanel.add(gamePlayPanel, PanelId.GAME_PLAY.toString());
 

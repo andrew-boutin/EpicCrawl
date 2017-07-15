@@ -13,23 +13,32 @@ import java.awt.*;
 public class DesignerPanel extends JPanel {
     private Level curLevel;
     private final DesignerGrid designerGrid;
+    private final JScrollPane jScrollPane;
 
     // TODO: Can make an interface for DesignerController, give reference to the controls (buttons etc.) so they can kick off events that can
     // effect the designer grid
 
     public DesignerPanel(JButton mainScreenButton) {
+        // The designer grid is embedded into a scrollable view to support zooming
+        jScrollPane = new JScrollPane();
+
         curLevel = new Level();
         designerGrid = new DesignerGrid(this);
         designerGrid.setLevel(curLevel);
 
+        jScrollPane.setWheelScrollingEnabled(false);
+        jScrollPane.setViewportView(designerGrid);
+        jScrollPane.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
+
         this.setLayout(new BorderLayout());
-        Dimension dimension = new Dimension(EpicCrawl.screenWidth, EpicCrawl.screenHeight - 60);
-        this.setPreferredSize(dimension);
         this.setBackground(Color.BLUE);
 
-        this.add(designerGrid, BorderLayout.CENTER);
-//        this.add(optionsPanel, BorderLayout.SOUTH);
-        //this.add(mainScreenButton);
+        this.add(jScrollPane, BorderLayout.CENTER);
+        this.add(new JLabel("Controls"), BorderLayout.EAST);
+    }
+
+    public Dimension getScrollPaneViewPortSize() {
+        return jScrollPane.getViewport().getSize();
     }
 
     public void changeImage(GridLocation gridLocation) {

@@ -1,28 +1,35 @@
-Images as 2D array
-Layer/Type updates - make sure MetaItems are tagged appropriately
-Fix placing SPAN items
-Fix placing portals
-Signs that hold text
-Fix portal edits
-Check item placement logic w/ new layers/types
-Item grouping also sorted by Type/s
-User creation of new game objects.
+Missing Functionality
+- Designer
+    - Item selection for placement
+    - Multiple images per tile
+    - Fill
+    - Edit
+    - Clear
+    - Item placement logic and constraints
+    - Save level
+    - Load level
+    - Delete level
+    - Controls info
+    - Portal info input
+    - Place items that span multiple tiles
+    - Pop top object on right click
+- Main Screen
+    - Game info - html?
+    - Play Game - New Game / Load Game (choose world)
+- Game Play
+    - Default world w/ levels on DB creation
 
-Designer
-	Mouse dragging spawn multiple click events for same coordinates
-		While dragging could save last updated coordinate and ignore if it is reached again
-	
-	Don't put door in house - add in separately
-	Change back to put it in and prompt for portal info
-	
-	Creating portals correctly when loading level
-	
-	Don't allow door/portal fill actions...
-    Doors have red X over them w/ tool tip if they aren't linked to another door. Portals are OK.
-    
-    
---- Wish List ---
-Designer
-- Don't allow selecting item headers: http://stackoverflow.com/questions/23722706/how-to-disable-certain-items-in-a-jcombobox
-- Undo last action
-- Zoom in on an area
+New Ideas
+- Variable level size in designer
+- Doors / Portal have visual indicator on designer if they aren't linked to a level yet
+- Worlds - allow different sets of levels - create/manage these in the editor?
+- User creation of new game objects - create/manage these in the editor?
+- Signs hold text - interact with them to pop up sign info
+- Undo last action in designer
+
+Notes
+- Designer mouse drags should be able to prevent multiple events on the same cell by checking the last location first
+- Don't allow selecting item headers in combobox http://stackoverflow.com/questions/23722706/how-to-disable-certain-items-in-a-jcombobox
+
+World - starting level & location
+Level - knows what is in them, how they connect to other levels

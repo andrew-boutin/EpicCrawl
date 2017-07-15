@@ -10,28 +10,26 @@ import java.awt.geom.AffineTransform;
  *
  * The actual grid that shows what's in the current level. Interactive.
  */
-public class DesignerGrid extends JPanel {
+public class DesignerGrid extends JPanel { // implements Scrollable {
     private Level curLevel;
     private DesignerPanel designerPanel; // TODO: Change up to limited interface
 
-    private int rows = 50, cols = 50; // TODO: Keep above 0
-
-    private int cellWidth = getWidth() / cols, cellHeight = getHeight() / rows;
+    // TODO: Keep these above 0 when allowing the user to define them
+    private int rows = 50;
+    private int cols = 50;
 
     private GridLocation curHoverGridLocation = new GridLocation(0, 0);
 
-    private double zoom = 1.0;
-
-    private AffineTransform m_zoom;
+    // Related to zoom
+    private final double maxZoom = 2.0;
+    private final double minZoom = 1.0;
+    private final double zoomStep = 0.2;
+    private double zoom = minZoom;
 
     public DesignerGrid(DesignerPanel designerPanel) {
         updateCurCoordsDisplay(curHoverGridLocation);
 
         this.designerPanel = designerPanel;
-
-        this.setLayout(new BorderLayout());
-        Dimension dimension = new Dimension(EpicCrawl.screenWidth,EpicCrawl.screenHeight - 60);
-        this.setPreferredSize(dimension);
         this.setBackground(Color.BLACK);
 
         addMouseListeners();
@@ -41,10 +39,14 @@ public class DesignerGrid extends JPanel {
         this.curLevel = curLevel;
     }
 
-    // TODO: Now this also has to take the scrolls into consideration
     private GridLocation convertPointToGridLocation(Point clickPoint) {
-        int col = (int)(clickPoint.getX() / zoom / cellWidth);
-        int row = (int)(clickPoint.getY() / zoom / cellHeight);
+        Dimension cellDimension = getCellDimension();
+
+        int cellWidth = (int)cellDimension.getWidth();
+        int cellHeight = (int)cellDimension.getHeight();
+
+        int col = (int)((clickPoint.getX() + 0) / cellWidth); // / zoom / cellWidth);
+        int row = (int)((clickPoint.getY() + 0) / cellHeight); // / zoom / cellHeight);
 
         // Cell chunked grid may not take up the whole panel so prevent out of bounds
         if(row >= rows) {
@@ -75,20 +77,19 @@ public class DesignerGrid extends JPanel {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
                 int notches = e.getWheelRotation();
-                double temp = zoom - (notches * 0.2);
-                temp = Math.max(temp, 1.0);
-
-                temp = Math.min(temp, 2.0);
+                double temp = (zoom - (notches * zoomStep));
+                temp = Math.max(temp, minZoom);
+                temp = Math.min(temp, maxZoom);
 
                 if(temp != zoom) {
                     zoom = temp;
 
-                    Dimension dimension = new Dimension((int)(EpicCrawl.screenWidth * zoom), (int)((EpicCrawl.screenHeight - 60) * zoom));
-                    designerPanel.setPreferredSize(dimension);
+                    Dimension jScrollPaneSize = designerPanel.getScrollPaneViewPortSize();
+                    Dimension dimension = new Dimension((int)(jScrollPaneSize.getWidth() * zoom), (int)(jScrollPaneSize.getHeight() * zoom));
 
-                    // Handles automatically updating the scroll bar sizes
-                    designerPanel.revalidate();
-                    designerPanel.repaint();
+                    DesignerGrid.this.setPreferredSize(dimension);
+                    DesignerGrid.this.revalidate();
+                    DesignerGrid.this.repaint();
                 }
             }
         });
@@ -116,16 +117,18 @@ public class DesignerGrid extends JPanel {
         this.setToolTipText("(" + newGridLocation.getRow() + ", " + newGridLocation.getCol() + ")");
     }
 
+    private Dimension getCellDimension() {
+        return new Dimension(getWidth() / cols, getHeight() / rows);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
-        m_zoom = ((Graphics2D) g).getTransform();
-        m_zoom.scale(zoom, zoom);
-        ((Graphics2D) g).transform(m_zoom);
-
         super.paintComponent(g);
 
-        cellWidth = getWidth() / cols;
-        cellHeight = getHeight() / rows;
+        Dimension cellDimension = getCellDimension();
+
+        int cellWidth = (int)cellDimension.getWidth();
+        int cellHeight = (int)cellDimension.getHeight();
 
         // TODO: Maybe interface to only expose this to here... same for class inside the array...
         // TODO: So would only have access to the 3D array of objects and only be able to get the images out of the objects
@@ -176,5 +179,44 @@ public class DesignerGrid extends JPanel {
             int y = cellHeight * curHoverGridLocation.getRow() + (cellHeight * curCol);
             g.drawLine(x1, y, x2, y);
         }
+
+        // Handle displaying with the zoom factor
+        Graphics2D g2 = (Graphics2D)g;
+        int w = getWidth();
+        int h = getHeight();
+        g2.translate(w / 2, h / 2);
+        g2.scale(zoom, zoom);
+        g2.translate(-(w / 2), -(h / 2));
     }
+
+//    @Override
+//    public Dimension getPreferredScrollableViewportSize() {
+//        return new Dimension(10000, 10000);
+//    }
+//
+//    //visibleRect - The view area visible within the viewport
+//    //orientation - Either SwingConstants.VERTICAL or SwingConstants.HORIZONTAL.
+//    //direction - Less than zero to scroll up/left, greater than zero for down/right.
+//
+//    @Override
+//    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
+//        // TODO: Clicking in space outside of current scroll on scroll bar - moves the scroll bar a whole block
+//        return 1;
+//    }
+//
+//    @Override
+//    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+//        // TODO: Moving the scroll bar one increment - move one row / column
+//        return 1;
+//    }
+//
+//    @Override
+//    public boolean getScrollableTracksViewportHeight() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean getScrollableTracksViewportWidth() {
+//        return false;
+//    }
 }

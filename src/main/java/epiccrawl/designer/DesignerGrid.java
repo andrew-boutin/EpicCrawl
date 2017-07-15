@@ -13,7 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import epiccrawl.Main;
+//import epiccrawl.Main;
 import epiccrawl.database.MetaItem;
 import epiccrawl.database.Type;
 import epiccrawl.designer.designerComponent.OptionListener;
@@ -31,8 +31,8 @@ public class DesignerGrid extends JPanel implements OptionListener{
 	private boolean[][] alreadyChecked;
 	
 	public DesignerGrid(){
-		rows = Main.rows;
-		cols = Main.cols;
+		rows = 50;//Main.rows;
+		cols = 50;//Main.cols;
 		optionsID = 0;
 		selectedMetaItem = MetaItem.getVoidMetaItem();
 		
@@ -153,7 +153,7 @@ public class DesignerGrid extends JPanel implements OptionListener{
 		if(types.contains(Type.SPAN)){ // Multi-image object
 			Point coord = getCoordinateofPoint(clickPoint);
 			int col = coord.x, row = coord.y;
-			MultiObjectHandler.handleMultiObjectPlacement(gridObjs, row, col, selectedMetaItem.getID());
+			//MultiObjectHandler.handleMultiObjectPlacement(gridObjs, row, col, selectedMetaItem.getID());
 		}
 		else{ // Singular object
 			findGridObjectByPoint(clickPoint).handleClick(selectedMetaItem);

@@ -1,21 +1,13 @@
 EpicCrawl
 =========
 
-Java - 2D top down tile based ARPG.
+Java 2D top down tile based ARPG.
 
-Utilizing SQLITE & JDBC - [sqlite-jdbc-3.15.1.jar](https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.15.1.jar).
-
-More to come soon.
-
----
+Players can create their own assets, worlds, and levels to play through and explore.
 
 ###### Build
 
-This project builds using Gradle and the Gradle Wrapper.
-
-Build: Execute `./gradlew build` from the root of the repo.
-
-Gradle Run: Execute `./gradlew run` from the root of the repo.
+`./gradlew run`
 
 ###### Author
 
