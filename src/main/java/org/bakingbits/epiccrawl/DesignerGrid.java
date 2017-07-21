@@ -3,14 +3,13 @@ package org.bakingbits.epiccrawl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 
 /**
  * Created by aboutin on 7/10/17.
  *
  * The actual grid that shows what's in the current level. Interactive.
  */
-public class DesignerGrid extends JPanel { // implements Scrollable {
+public class DesignerGrid extends JPanel { //implements Scrollable {
     private Level curLevel;
     private DesignerPanel designerPanel; // TODO: Change up to limited interface
 
@@ -35,6 +34,12 @@ public class DesignerGrid extends JPanel { // implements Scrollable {
         addMouseListeners();
     }
 
+    public void updateGridSize(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        repaint();
+    }
+
     public void setLevel(Level curLevel) {
         this.curLevel = curLevel;
     }
@@ -47,6 +52,14 @@ public class DesignerGrid extends JPanel { // implements Scrollable {
 
         int col = (int)((clickPoint.getX() + 0) / cellWidth); // / zoom / cellWidth);
         int row = (int)((clickPoint.getY() + 0) / cellHeight); // / zoom / cellHeight);
+
+        // Mouse drags can continue off of the panel so prevent out of bounds exceptions
+        if(col < 0) {
+            col = 0;
+        }
+        if(row < 0) {
+            row = 0;
+        }
 
         // Cell chunked grid may not take up the whole panel so prevent out of bounds
         if(row >= rows) {
@@ -66,10 +79,12 @@ public class DesignerGrid extends JPanel { // implements Scrollable {
 
                 if(SwingUtilities.isLeftMouseButton(me)) {
                     designerPanel.changeImage(gridLocation);
-                    repaint();
                 }
-                else if(SwingUtilities.isRightMouseButton(me))
-                    return;
+                else if(SwingUtilities.isRightMouseButton(me)) {
+                    designerPanel.popTopObject(gridLocation);
+                }
+
+                repaint();
             }
         });
 
@@ -96,7 +111,11 @@ public class DesignerGrid extends JPanel { // implements Scrollable {
 
         this.addMouseMotionListener(new MouseMotionAdapter(){
             public void mouseDragged(MouseEvent me) {
-                updateHoverLocation(convertPointToGridLocation(me.getPoint()));
+                if(SwingUtilities.isLeftMouseButton(me)) {
+                    GridLocation gridLocation = convertPointToGridLocation(me.getPoint());
+                    updateHoverLocation(gridLocation);
+                    designerPanel.changeImage(gridLocation);
+                }
             }
 
             public void mouseMoved(MouseEvent me){
@@ -191,7 +210,8 @@ public class DesignerGrid extends JPanel { // implements Scrollable {
 
 //    @Override
 //    public Dimension getPreferredScrollableViewportSize() {
-//        return new Dimension(10000, 10000);
+//        //return new Dimension(10000, 10000);
+//        return getPreferredSize();
 //    }
 //
 //    //visibleRect - The view area visible within the viewport

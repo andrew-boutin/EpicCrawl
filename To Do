@@ -20,7 +20,6 @@ Missing Functionality
     - Default world w/ levels on DB creation
 
 New Ideas
-- Variable level size in designer
 - Doors / Portal have visual indicator on designer if they aren't linked to a level yet
 - Worlds - allow different sets of levels - create/manage these in the editor?
 - User creation of new game objects - create/manage these in the editor?

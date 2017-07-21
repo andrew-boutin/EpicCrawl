@@ -19,7 +19,7 @@ public class Level {
 
         for(int curRow = 0; curRow < numRows; curRow++) {
             for(int curCol = 0; curCol < numCols; curCol++) {
-                gridObjects[curRow][curCol] = makeImage("dirt.png");
+                gridObjects[curRow][curCol] = makeImage("void.png");
             }
         }
     }
@@ -41,8 +41,12 @@ public class Level {
         gridObjects = new Image[numRows][numCols];
     }
 
-    public void updateImage(GridLocation gridLocation){
+    public void setCell(GridLocation gridLocation){
         gridObjects[gridLocation.getRow()][gridLocation.getCol()] = makeImage("grass.png");
+    }
+
+    public void resetCell(GridLocation gridLocation) {
+        gridObjects[gridLocation.getRow()][gridLocation.getCol()] = makeImage("void.png");
     }
 
     private Image makeImage(String imageName){

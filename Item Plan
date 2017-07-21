@@ -1,0 +1,89 @@
+Asset
+- Name (display in designer, game log output)
+- Images (shows what to display)
+- Layer [VOID, GROUND, ONGROUND, WALL, ONWALL] - can only be 1
+- Type [REGULAR, ALIVE (Player, NPC, Enemy, Animal)]
+
+REGULAR:
+- ANIMATED
+- STATE
+- SPAN
+- CONTAINER
+- PORTAL
+
+
+
+ALIVE PLAYER images/heroLeft.png images/heroRight.png images/heroUp.png images/heroDown.png
+ALIVE NPC barkeep.png
+ALIVE NPC girl.png
+ALIVE NPC girl0.png
+ALIVE NPC girl1.png
+ALIVE NPC girl2.png
+ALIVE NPC villager1.png
+ALIVE ENEMY enemyBull.png
+ALIVE ENEMY enemyRat.png
+ALIVE ENEMY enemyskeleton.png
+
+REGULAR wallStone.png
+REGULAR wallStoneTorch1.png
+REGULAR wallStoneTorch2.png
+REGULAR wallwood.png
+REGULAR sewergrate.png
+---
+REGULAR woodFloorDark.png
+REGULAR woodFloorLight.png
+REGULAR woodFloorMedium.png
+REGULAR woodFloorRed.png
+REGULAR dirt.png
+REGULAR grass.png
+REGULAR void.png
+REGULAR floorStone.png
+---
+images/cage.png
+images/chairLeftFacing.png
+images/chairRightFacing.png
+images/rock.png
+images/table.png
+images/tableWithFood.png
+
+ANIMATED images/rtree1.png images/rtree2.png images/rtree3.png
+ANIMATED images/ltree1.png images/ltree2.png images/ltree3.png images/portal1.png
+ANIMATED images/tbtree1.png images/tbtree2.png images/tbtree3.png
+ANIMATED images/tree1.png images/tree2.png images/tree3.png
+ANIMATED images/flamingBrazier1.png images/flamingBrazier1a.png
+ANIMATED images/flamingBrazier2.png images/flamingBrazier2a.png
+
+barrel1.png
+images/barrel2.png
+images/barrel3.png
+images/chest.png images/chestopen.png
+images/chestornate.png images/chestornateopen.png
+images/crate1.png
+images/crate2.png
+images/crate2barrel.png
+images/deadguy1.png
+images/deadguy2.png
+
+SPAN images/bedLeft.png images/bedRight.png
+SPAN images/houser0c0.png images/houser0c1.png images/houser0c2.png images/houser0c3.png images/houser0c4.png images/houser1c0.png images/houser1c1.png images/houser1c2.png images/houser1c3.png images/houser1c4.png images/houser2c0.png images/houser2c1.png images/houser2c2.png images/houser2c3.png images/houser2c4.png
+
+PORTAL images/doorInsideToOutside.png
+PORTAL images/doorOutsideToInside.png
+PORTAL images/portal2.png
+
+
+images/doorInsideToInside.png
+images/sign.png
+images/dungeonwooddoor.png
+
+
+
+-- Extra --
+images/characterArmor.png
+images/characterNoArmor.png
+images/deadhero.png
+characterSwordAndShield.png
+images/heroine.png
+images/heroineweapon.png
+images/epicCrawlerIcon.png
+images/epicCrawlTitle.png

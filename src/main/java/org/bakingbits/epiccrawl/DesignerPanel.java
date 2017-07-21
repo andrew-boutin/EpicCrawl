@@ -1,6 +1,8 @@
 package org.bakingbits.epiccrawl;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 /**
@@ -30,11 +32,42 @@ public class DesignerPanel extends JPanel {
         jScrollPane.setViewportView(designerGrid);
         jScrollPane.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
 
+        JSpinner rowSpinner = new JSpinner(new SpinnerNumberModel(50, 1, 100, 1));
+        JSpinner columnSpinner = new JSpinner(new SpinnerNumberModel(50, 1, 100, 1));
+
+        ChangeListener changeListener = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int rows = (int)rowSpinner.getValue();
+                int cols = (int)(columnSpinner.getValue());
+
+                curLevel.reSize(rows, cols);
+                designerGrid.updateGridSize(rows, cols);
+            }
+        };
+
+        rowSpinner.addChangeListener(changeListener);
+        columnSpinner.addChangeListener(changeListener);
+
+        JPanel rowSpinnerPanel = new JPanel();
+        rowSpinnerPanel.add(rowSpinner);
+        rowSpinnerPanel.setBorder(BorderFactory.createTitledBorder("Rows"));
+        rowSpinnerPanel.setToolTipText("Number of rows in the level (1 - 100).");
+        rowSpinner.setToolTipText("Number of rows in the level (1 - 100).");
+
+        JPanel columnSpinnerPanel = new JPanel();
+        columnSpinnerPanel.add(columnSpinner);
+        columnSpinnerPanel.setBorder(BorderFactory.createTitledBorder("Cols"));
+        columnSpinnerPanel.setToolTipText("Number of columns in the level (1 - 100).");
+        columnSpinner.setToolTipText("Number of columns in the level (1 - 100).");
+
         this.setLayout(new BorderLayout());
         this.setBackground(Color.BLUE);
 
         this.add(jScrollPane, BorderLayout.CENTER);
-        this.add(new JLabel("Controls"), BorderLayout.EAST);
+        this.add(rowSpinnerPanel, BorderLayout.EAST);
+        this.add(columnSpinnerPanel, BorderLayout.WEST);
+        this.add(new JLabel("Controls"), BorderLayout.NORTH);
     }
 
     public Dimension getScrollPaneViewPortSize() {
@@ -42,7 +75,11 @@ public class DesignerPanel extends JPanel {
     }
 
     public void changeImage(GridLocation gridLocation) {
-        curLevel.updateImage(gridLocation);
+        curLevel.setCell(gridLocation);
+    }
+
+    public void popTopObject(GridLocation gridLocation) {
+        curLevel.resetCell(gridLocation);
     }
 
 //    public static void main(String[] args){
