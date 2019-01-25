@@ -1,23 +1,15 @@
-EpicCrawl
-=========
+# Epic Crawl
 
-Java - 2D top down tile based ARPG.
+This is a 2D top down tile based ARPG written in Java utilizing SQLite and JDBC. It also provides a level designer to the player so they can build their own adventure!
 
-Utilizing SQLITE & JDBC - [sqlite-jdbc-3.15.1.jar](https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.15.1.jar).
+![Epic Crawl Gif](docs/epiccrawl.gif)
 
-More to come soon.
+## Cmds
+
+Build and run
+
+    ./gradlew build run
 
 ---
 
-###### Build
-
-This project builds using Gradle and the Gradle Wrapper.
-
-Build: Execute `./gradlew build` from the root of the repo.
-
-Gradle Run: Execute `./gradlew run` from the root of the repo.
-
-###### Author
-
-Andy Boutin
-www.andrewboutin.com
+Check out my [personal site](https://andrewboutin.com)!
